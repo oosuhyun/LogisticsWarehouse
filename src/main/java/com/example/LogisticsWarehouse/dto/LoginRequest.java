@@ -1,0 +1,17 @@
+package com.example.LogisticsWarehouse.dto;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@Component
+public class LoginRequest {
+
+    private String email;
+    private String password;
+
+}
