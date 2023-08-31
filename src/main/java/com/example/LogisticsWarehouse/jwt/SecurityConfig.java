@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/api/jwt/info").authenticated()
                 .antMatchers("/api/jwt/admin/**").hasAuthority(UserRole.ADMIN.name())
-                .antMatchers("/**").permitAll()
+                .anyRequest().permitAll() //다른 요청들은 인증, 권한 필요없이 허용
                 .and().build();
     }
 

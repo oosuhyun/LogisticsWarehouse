@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -17,7 +19,7 @@ public class JwtLoginApiController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public String join(@RequestBody JoinRequest joinRequest) {
+    public String join(@Valid @RequestBody JoinRequest joinRequest) {
 
         // email 중복 체크
         if(userService.checkEmailDuplicate(joinRequest.getEmail())) {
@@ -37,7 +39,7 @@ public class JwtLoginApiController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest loginRequest) {
+    public String login(@Valid @RequestBody LoginRequest loginRequest) {
 
         User user = userService.login(loginRequest);
 
@@ -65,5 +67,15 @@ public class JwtLoginApiController {
     @GetMapping("/admin")
     public String adminPage() {
         return "관리자 페이지 접근 성공";
+    }
+
+    @GetMapping("/test")
+    public String create(){
+        return "test";
+//        recordService.create(req);
+//        System.out.println(req.getContent() + req.getUserName() + req.getUserName());
+//        return ResponseEntity
+//                .status(HttpStatus.CREATED)
+//                .build();
     }
 }
