@@ -11,13 +11,3 @@ spring:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ptngusimg@gmail.com
-    password: moxipdoceihjgnye
-    properties:
-      mail:
-        smtp:
-          starttls:
-            enable: true
