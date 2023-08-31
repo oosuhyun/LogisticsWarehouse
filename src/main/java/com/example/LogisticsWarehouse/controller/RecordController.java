@@ -52,21 +52,21 @@ public class RecordController {
     //기록 목록 조회(오름차순, 페이지네이션)
     @GetMapping("/ASC")
     public ResponseEntity<Page<Record>> getAllASCPage(
-            @PageableDefault(size = 5, sort = {"createDate"}, direction = Sort.Direction.ASC)
+            @PageableDefault(size = 5, sort = {"createdDate"}, direction = Sort.Direction.ASC)
             Pageable pageable
     ){
         return ResponseEntity
-                .ok(recordRepository.findAll(pageable));
+                .ok(recordService.findAllASCPage(pageable));
     }
 
     //기록 목록 조회(내림차순, 페이지네이션)
     @GetMapping("/DESC")
     public ResponseEntity<Page<Record>> getAllDESCPage(
-            @PageableDefault(size = 5, sort = {"createDate"}, direction = Sort.Direction.DESC)
+            @PageableDefault(size = 5, sort = {"createdDate"}, direction = Sort.Direction.DESC)
             Pageable pageable
     ){
         return ResponseEntity
-                .ok(recordRepository.findAll(pageable));
+                .ok(recordService.findAllDESCPage(pageable));
     }
 
     //기록 삭제
@@ -78,11 +78,14 @@ public class RecordController {
 
     //유저이름으로 검색
     @GetMapping("/search")
-    public ResponseEntity<List<RecordResponse>> getdByUserNameContaining(
-            @RequestParam(value = "keyword") String keyword
+    public ResponseEntity<Page<Record>> getByUserNameContaining(
+            String keyword,
+            @PageableDefault(size = 5, sort = {"createdDate"}, direction = Sort.Direction.DESC)
+            Pageable pageable
     ){
+        System.out.println("test1");
         return ResponseEntity
-                .ok(recordService.findByUserNameContaining(keyword));
+                .ok(recordService.findByUserNameContaining(keyword, pageable));
     }
 
 }

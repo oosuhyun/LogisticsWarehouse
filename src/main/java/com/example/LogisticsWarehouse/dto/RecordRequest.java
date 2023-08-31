@@ -29,7 +29,6 @@ public class RecordRequest {
                 .userName(this.userName)
                 .railNum(this.railNum)
                 .content(this.content)
-                .createDate(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
                 .build();
     }
 

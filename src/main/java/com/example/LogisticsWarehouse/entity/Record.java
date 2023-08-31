@@ -14,13 +14,12 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class Record {
+public class Record extends BaseTimeEntity{
 
     @Id
     @GeneratedValue
     private Long recordId;
     private String userName;
-    private LocalDateTime createDate;
     private Integer railNum;
     private String content;
 
