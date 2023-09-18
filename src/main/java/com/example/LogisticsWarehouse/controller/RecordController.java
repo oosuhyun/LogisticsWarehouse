@@ -3,8 +3,10 @@ package com.example.LogisticsWarehouse.controller;
 import com.example.LogisticsWarehouse.dto.RecordRequest;
 import com.example.LogisticsWarehouse.dto.RecordResponse;
 import com.example.LogisticsWarehouse.entity.Record;
+import com.example.LogisticsWarehouse.entity.User;
 import com.example.LogisticsWarehouse.repository.RecordRepository;
 import com.example.LogisticsWarehouse.service.RecordService;
+import com.example.LogisticsWarehouse.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -21,14 +24,17 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/record")
+@CrossOrigin(origins = "http://localhost:3000")
 public class RecordController {
 
     private final RecordService recordService;
     private final RecordRepository recordRepository;
+    private final UserService userService;
+
 
     //기록 생성
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody RecordRequest req){
+    public ResponseEntity<Void> create(Authentication auth, @RequestBody RecordRequest req){
         recordService.create(req);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -71,7 +77,14 @@ public class RecordController {
 
     //기록 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Long id){
+    public ResponseEntity<?> deleteById(Authentication auth, @PathVariable Long id){
+        RecordResponse record = recordService.findById(id);
+        User loginUser = userService.getLoginUserByEmail(auth.getName());
+
+        if(!record.getUserName().equals(loginUser.getUserName()) ){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         recordService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

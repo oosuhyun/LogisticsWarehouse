@@ -2,9 +2,11 @@ package com.example.LogisticsWarehouse.jwt;
 
 import com.example.LogisticsWarehouse.dto.JoinRequest;
 import com.example.LogisticsWarehouse.dto.LoginRequest;
+import com.example.LogisticsWarehouse.dto.UserResponse;
 import com.example.LogisticsWarehouse.entity.User;
 import com.example.LogisticsWarehouse.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,7 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/jwt")
+@CrossOrigin(origins = "http://localhost:3000")
 public class JwtLoginApiController {
 
     private final UserService userService;
@@ -23,7 +26,7 @@ public class JwtLoginApiController {
 
         // email 중복 체크
         if(userService.checkEmailDuplicate(joinRequest.getEmail())) {
-            return "로그인 아이디가 중복됩니다.";
+            return "이메일이 중복됩니다.";
         }
         // 닉네임 중복 체크
         if(userService.checkUserNameDuplicate(joinRequest.getUserName())) {
@@ -57,11 +60,13 @@ public class JwtLoginApiController {
     }
 
     @GetMapping("/info")
-    public String userInfo(Authentication auth) {
+    public UserResponse userInfo(Authentication auth) {
         User loginUser = userService.getLoginUserByEmail(auth.getName());
 
-        return String.format("email : %s\nuserName : %s\nrole : %s",
-                loginUser.getEmail(), loginUser.getUserName(), loginUser.getRole().name());
+//        return String.format("email : %s\nuserName : %s\nrole : %s",
+//                loginUser.getEmail(), loginUser.getUserName(), loginUser.getRole().name());
+
+        return UserResponse.toDTO(loginUser);
     }
 
     @GetMapping("/admin")

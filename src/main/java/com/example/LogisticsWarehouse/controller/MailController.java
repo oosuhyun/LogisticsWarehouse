@@ -4,14 +4,12 @@ import com.example.LogisticsWarehouse.dto.MailRequest;
 import com.example.LogisticsWarehouse.service.MailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/mail")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MailController {
 
     private final MailService mailService;
