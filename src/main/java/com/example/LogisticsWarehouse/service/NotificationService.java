@@ -35,8 +35,8 @@ public class NotificationService {
     }
 
     //내가 받은 알림 전체 조회
-    public Page<Notification> findByGetUserId(Long id, Pageable pageable){
-        return notificationRepository.findByGetUserId(id, pageable);
+    public Page<Notification> findByGetUser(String name, Pageable pageable){
+        return notificationRepository.findByGetUser(name, pageable);
     }
 
 

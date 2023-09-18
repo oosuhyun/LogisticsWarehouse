@@ -5,6 +5,7 @@ import com.example.LogisticsWarehouse.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -37,6 +38,9 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtTokenFilter(userService, secretKey), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/api/jwt/info").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/record").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/record/{id}").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/notice/get_list").authenticated()
                 .antMatchers("/api/jwt/admin/**").hasAuthority(UserRole.ADMIN.name())
                 .anyRequest().permitAll() //다른 요청들은 인증, 권한 필요없이 허용
                 .and().build();

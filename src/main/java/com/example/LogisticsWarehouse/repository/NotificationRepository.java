@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
     //내가 받은 알림 전체 조회
-    Page<Notification> findByGetUserId(Long id, Pageable pageable);
+    Page<Notification> findByGetUser(String name, Pageable pageable);
 
 }
