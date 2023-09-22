@@ -58,5 +58,19 @@ public class NotificationController {
                 .ok(notificationService.findByGetUser(name, pageable));
     }
 
+    //내가 받은 알림 조회(타입별)
+    @GetMapping("/get_list/type")
+    public ResponseEntity<Page<Notification>> getByGetUserIdAndNoticeType(
+            Authentication auth,
+            String type,
+            @PageableDefault(size = 5, sort = {"createdDate"}, direction = Sort.Direction.DESC)
+            Pageable pageable
+    ){
+        User loginUser = userService.getLoginUserByEmail(auth.getName());
+        String name = loginUser.getUserName();
+        return ResponseEntity
+                .ok(notificationService.findByGetUserAndNoticeType(name, type, pageable));
+    }
+
 
 }

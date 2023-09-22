@@ -39,5 +39,10 @@ public class NotificationService {
         return notificationRepository.findByGetUser(name, pageable);
     }
 
+    //내가 받은 알림 조회(타입별)
+    public Page<Notification> findByGetUserAndNoticeType(String name, String type, Pageable pageable){
+        return notificationRepository.findByGetUserAndNoticeType(name, type, pageable);
+    }
+
 
 }
