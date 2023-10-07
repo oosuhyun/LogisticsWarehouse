@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityExistsException;
 import java.util.Optional;
 
 @Service
@@ -91,11 +92,15 @@ public class UserService {
      * email로 찾아온 User가 존재하면 User return
      */
     public User getLoginUserByEmail(String email) {
-        if(email == null) return null;
+//        if(email == null) return null;
 
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        if(optionalUser.isEmpty()) return null;
+//        Optional<User> optionalUser = userRepository.findByEmail(email);
+//        if(optionalUser.isEmpty()) return null;
 
-        return optionalUser.get();
+//        return optionalUser.get();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(EntityExistsException::new);
+
+        return user;
     }
 }
