@@ -36,6 +36,10 @@ dependencies {
 
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	//dynamodb
+	implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.429')
+	implementation 'com.amazonaws:aws-java-sdk-dynamodb'
 }
 
 tasks.named('test') {
