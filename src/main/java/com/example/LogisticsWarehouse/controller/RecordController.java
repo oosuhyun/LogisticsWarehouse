@@ -75,7 +75,7 @@ public class RecordController {
                 .ok(recordService.findAllDESCPage(pageable));
     }
 
-    //기록 삭제
+    //기록 단일 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(Authentication auth, @PathVariable Long id){
         RecordResponse record = recordService.findById(id);
@@ -86,6 +86,13 @@ public class RecordController {
         }
 
         recordService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    //기록 전체 삭제
+    @DeleteMapping
+    public ResponseEntity<?> deleteAll(){
+        recordService.deleteAll();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

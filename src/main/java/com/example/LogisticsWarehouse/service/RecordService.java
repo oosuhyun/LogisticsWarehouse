@@ -55,9 +55,14 @@ public class RecordService {
         return recordRepository.findAll(pageable);
     }
 
-    //기록 삭제
+    //기록 단일 삭제
     public void deleteById(Long id){
         recordRepository.deleteById(id);
+    }
+
+    //기록 전체 삭제
+    public void deleteAll(){
+        recordRepository.deleteAll();
     }
 
     //유저이름으로 검색

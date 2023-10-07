@@ -72,5 +72,18 @@ public class NotificationController {
                 .ok(notificationService.findByGetUserAndNoticeType(name, type, pageable));
     }
 
+    //알림 단일 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
+        notificationService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    //알림 전체 삭제
+    @DeleteMapping
+    public ResponseEntity<?> deleteAll(){
+        notificationService.deleteAll();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

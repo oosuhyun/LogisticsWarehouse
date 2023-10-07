@@ -44,5 +44,15 @@ public class NotificationService {
         return notificationRepository.findByGetUserAndNoticeType(name, type, pageable);
     }
 
+    //알림 단일 삭제
+    public void deleteById(Long id){
+        notificationRepository.deleteById(id);
+    }
+
+    //알림 전체 삭제
+    public void deleteAll(){
+        notificationRepository.deleteAll();
+    }
+
 
 }
